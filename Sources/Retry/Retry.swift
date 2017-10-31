@@ -77,6 +77,6 @@ public func retry<T>(_ block: ()throws -> T, times: RecoveryTimes, withRecovery 
 ///   - recovery: A block to run between code failures.
 /// - Returns: What is returned from the block.
 /// - Throws: RecoveryError.failedToRecover if the recovery loop completes and fails to recover. This only occurs with a finite recovery time.
-public func retry<T>(_ block: ()throws -> T, times: Int, withRecovery recovery: (Error) -> ())throws -> T {
+public func retry<T>(_ block: ()throws -> T, times: Int, withRecovery recovery: (Error)throws -> ())throws -> T {
     return try retry(block, times: .finite(times), withRecovery: recovery)
 }
