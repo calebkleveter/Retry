@@ -27,8 +27,13 @@ public enum RecoveryError: Error {
     case failedToRecover
 }
 
+/// The type of recovery loop to run on the throwing block.
 public enum RecoveryTimes {
+    
+    /// Run recovery loop until the the throwing block completes.
     case infinite
+    
+    /// Run the recovery loop a maximum amount of times
     case finite(Int)
 }
 
