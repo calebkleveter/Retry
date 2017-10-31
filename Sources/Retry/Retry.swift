@@ -56,3 +56,7 @@ public func retry<T>(_ block: ()throws -> T, times: RecoveryTimes, withRecovery 
 public func retry<T>(_ block: ()throws -> T, times: Int, withRecovery recovery: (Error) -> ())throws -> T {
     return try retry(block, times: .finite(times), withRecovery: recovery)
 }
+
+public func retry(_ block: ()throws -> (), times: RecoveryTimes, withRecovery recovery: (Error) -> ())throws {
+    try retry(block, times: times, withRecovery: recovery)
+}
