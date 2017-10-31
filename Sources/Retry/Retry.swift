@@ -29,3 +29,26 @@ public enum RecoveryTimes {
     case finite(Int)
 }
 
+public func retry<T>(_ block: ()throws -> T, times: RecoveryTimes, withRecovery recovery: (Error) -> ())throws -> T {
+    switch times {
+    case .infinite:
+    while true {
+        do {
+            let result = try block()
+            return result
+        } catch let error {
+            recovery(error)
+        }
+    }
+    case let .finite(runTimes):
+        for _ in 0...runTimes {
+            do {
+                let result = try block()
+                return result
+            } catch let error {
+                recovery(error)
+            }
+        }
+        throw RecoveryError.failedToRecover
+    }
+}
