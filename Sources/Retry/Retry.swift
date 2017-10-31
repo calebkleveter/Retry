@@ -20,7 +20,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+public enum RecoveryError: Error {
+    case failedToRecover
+}
+
 public enum RecoveryTimes {
     case infinite
     case finite(Int)
 }
+
