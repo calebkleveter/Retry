@@ -42,5 +42,7 @@ class RetryTests: XCTestCase {
     
     static var allTests = [
         ("testRetryThrow", testRetryThrow),
+        ("testRetrySuccess", testRetrySuccess),
+        ("testRetryFix", testRetryFix)
     ]
 }
