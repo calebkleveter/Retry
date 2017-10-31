@@ -91,3 +91,14 @@ public func retry<T>(_ block: ()throws -> T, times: Int, withRecovery recovery: 
 public func retry(_ block: ()throws -> (), times: RecoveryTimes, withRecovery recovery: (Error) -> ())throws {
     try retry(block, times: times, withRecovery: recovery)
 }
+
+/// Run a block that can throw until it succedes without throwing or the recovery loop completes.
+///
+/// - Parameters:
+///   - block: The code to try to run.
+///   - times: The numbers of times to run the retry loop.
+///   - recovery: A block to run between code failures.
+/// - Throws: RecoveryError.failedToRecover if the recovery loop completes and fails to recover. This only occurs with a finite recovery time.
+public func retry(_ block: ()throws -> (), times: Int, withRecovery recovery: (Error) -> ())throws {
+    try retry(block, times: .finite(times), withRecovery: recovery)
+}
