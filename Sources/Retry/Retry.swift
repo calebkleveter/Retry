@@ -41,7 +41,7 @@ public func retry<T>(_ block: ()throws -> T, times: RecoveryTimes, withRecovery 
         }
     }
     case let .finite(runTimes):
-        for _ in 0...runTimes {
+        for _ in 0..<runTimes {
             do {
                 let result = try block()
                 return result
