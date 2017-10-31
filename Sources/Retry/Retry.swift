@@ -20,7 +20,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+/// Any errors that occur in the code of the Retry library.
 public enum RecoveryError: Error {
+    
+    /// Thrown if a finite retry loop fails to recover the throwing block passed in.
     case failedToRecover
 }
 
