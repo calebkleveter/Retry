@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-enum RecoveryTimes {
+public enum RecoveryTimes {
     case infinite
     case finite(Int)
 }
