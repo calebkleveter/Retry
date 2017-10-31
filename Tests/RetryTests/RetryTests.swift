@@ -11,6 +11,18 @@ class RetryTests: XCTestCase {
         } catch {}
     }
 
+    func notThrow() throws {}
+    
+    func testRetrySuccess() {
+        do {
+            try retry({
+                try notThrow()
+            }, times: 5, withRecovery: { (error) in })
+        } catch let error {
+            XCTFail(error.localizedDescription)
+        }
+    }
+    
     static var allTests = [
         ("testRetryThrow", testRetryThrow),
     ]
