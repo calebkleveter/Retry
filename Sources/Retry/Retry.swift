@@ -44,8 +44,8 @@ public enum RecoveryTimes {
 ///   - times: The numbers of times to run the retry loop.
 ///   - recovery: A block to run between code failures.
 /// - Returns: What is returned from the block.
-/// - Throws: RecoveryError.failedToRecover if the recovery loop completes and fails to recover. This only occurs with a finite recovery time.
-public func retry<T>(_ block: ()throws -> T, times: RecoveryTimes, withRecovery recovery: (Error) -> ())throws -> T {
+/// - Throws: RecoveryError.failedToRecover if the recovery loop completes and fails to recover (This only occurs with a finite recovery time), or errors that are thrown from the recovery block.
+public func retry<T>(_ block: ()throws -> T, times: RecoveryTimes, withRecovery recovery: (Error)throws -> ())throws -> T {
     switch times {
     case .infinite:
     while true {
@@ -53,7 +53,7 @@ public func retry<T>(_ block: ()throws -> T, times: RecoveryTimes, withRecovery 
             let result = try block()
             return result
         } catch let error {
-            recovery(error)
+            try recovery(error)
         }
     }
     case let .finite(runTimes):
@@ -62,7 +62,7 @@ public func retry<T>(_ block: ()throws -> T, times: RecoveryTimes, withRecovery 
                 let result = try block()
                 return result
             } catch let error {
-                recovery(error)
+                try recovery(error)
             }
         }
         throw RecoveryError.failedToRecover
