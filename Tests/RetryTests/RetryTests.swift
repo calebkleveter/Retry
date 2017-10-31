@@ -23,6 +23,23 @@ class RetryTests: XCTestCase {
         }
     }
     
+    func testRetryFix() {
+        var index = 0
+        do {
+            let newdex = try retry({ () -> Int in
+                if index < 10 {
+                    throw RecoveryError.failedToRecover
+                }
+                return index
+            }, times: .infinite, withRecovery: { (error) in
+                index += 1
+            })
+            XCTAssert(newdex == 10)
+        } catch let error {
+            XCTFail(error.localizedDescription)
+        }
+    }
+    
     static var allTests = [
         ("testRetryThrow", testRetryThrow),
     ]
