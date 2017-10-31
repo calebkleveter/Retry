@@ -21,6 +21,6 @@
 // SOFTWARE.
 
 enum RecoveryTimes {
-    case infinate
+    case infinite
     case finite(Int)
 }
